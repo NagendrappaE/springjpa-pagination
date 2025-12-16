@@ -1,0 +1,16 @@
+package com.ece.emp.pagination.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ece.emp.pagination.bean.APiResponse;
+
+@RestController
+@RequestMapping("/api/v1/employees")
+public class EmployeeControllerV1 {
+	
+	public RsponseEntity<APiResponse> getAllEmployees() {
+
+	}
+
+}

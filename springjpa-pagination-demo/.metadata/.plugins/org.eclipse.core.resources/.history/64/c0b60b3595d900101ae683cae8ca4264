@@ -1,0 +1,7 @@
+package com.ece.emp.pagination.service.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface EmployeeRepository extends CrudRepository<T, ID> {
+
+}

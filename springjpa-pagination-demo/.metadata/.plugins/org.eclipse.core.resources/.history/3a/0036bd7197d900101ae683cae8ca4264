@@ -1,0 +1,63 @@
+/**
+ * 
+ */
+package io.bancify.finaxis.bankdata.enquiry.bean;
+
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+import org.springframework.http.HttpStatus;
+
+/**
+ * Standard API response record for REST endpoints.
+ * 
+ * @param timestamp Response time
+ * @param status    HTTP Status code (200, 400, 500, etc.)
+ * @param code      Application-specific code ("000" for success, "AP100" for
+ *                  failures, etc.)
+ * @param message   Human-readable summary
+ * @param moreInfo  Any additional data, can be null
+ * @param reference Unique reference ID for traceability
+ */
+public record APiResponse(OffsetDateTime timestamp, int status, String code, String message, Object moreInfo,
+		String reference) {
+
+	/** Success (HTTP 200, code "000") */
+	public static APiResponse success(String message, Object moreInfo, String reference) {
+		return new APiResponse(OffsetDateTime.now(), HttpStatus.OK.value(), "000", message, moreInfo, reference);
+	}
+
+	/**
+	 * Business failure (HTTP 200, non-"000" code) - For business logic failures
+	 * that should not be treated as HTTP errors.
+	 */
+	public static APiResponse businessFailure(String code, String message, Object moreInfo, String reference) {
+		return new APiResponse(OffsetDateTime.now(), HttpStatus.OK.value(), code, message, moreInfo, reference);
+	}
+
+	/** HTTP 400 Bad Request */
+	public static APiResponse badRequest(String message, Object moreInfo) {
+		return buildErrorResponse(HttpStatus.BAD_REQUEST, "AP400", message, moreInfo);
+	}
+
+	/** HTTP 404 Not Found */
+	public static APiResponse notFound(String message, Object moreInfo) {
+		return buildErrorResponse(HttpStatus.NOT_FOUND, "AP404", message, moreInfo);
+	}
+
+	/** HTTP 405 Method Not Allowed */
+	public static APiResponse methodNotAllowed(String message, Object moreInfo) {
+		return buildErrorResponse(HttpStatus.METHOD_NOT_ALLOWED, "AP405", message, moreInfo);
+	}
+
+	/** HTTP 500 Internal Server Error */
+	public static APiResponse internalServerError(String message, Object moreInfo) {
+		return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "AP500", message, moreInfo);
+	}
+
+	/** Helper for error responses */
+	private static APiResponse buildErrorResponse(HttpStatus status, String code, String message, Object moreInfo) {
+		return new APiResponse(OffsetDateTime.now(), status.value(), code, message, moreInfo,
+				UUID.randomUUID().toString());
+	}
+}

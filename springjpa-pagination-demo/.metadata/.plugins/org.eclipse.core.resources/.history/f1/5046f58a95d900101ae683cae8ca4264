@@ -1,0 +1,18 @@
+package com.ece.emp.pagination.model;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Table
+@Data
+public class Employee {
+    private Long id;
+    private String empName;
+    private Double salary;
+    private String departmentName;
+    private LocalDate dateOfJoining;
+
+   
+}

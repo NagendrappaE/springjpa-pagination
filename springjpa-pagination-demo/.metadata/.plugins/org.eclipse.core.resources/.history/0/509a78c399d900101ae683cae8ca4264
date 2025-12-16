@@ -1,0 +1,33 @@
+package com.ece.emp.pagination.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ece.emp.pagination.bean.APiResponse;
+import com.ece.emp.pagination.service.EmployeeService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequestMapping("/api/v1/employees")
+@Slf4j
+public class EmployeeControllerV1 {
+	
+	@Autowired
+	private EmployeeService employeeService;
+
+	@GetMapping(path = "acts")
+
+	public ResponseEntity<APiResponse> getAllEmployees(@RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("departmentName") String age) {
+
+		
+		
+		log.info("GET /api/v1/employees/acts called");
+		return ResponseEntity.ok(APiResponse.badRequest("MISSING_PARAMETERS", null));
+	}
+
+}

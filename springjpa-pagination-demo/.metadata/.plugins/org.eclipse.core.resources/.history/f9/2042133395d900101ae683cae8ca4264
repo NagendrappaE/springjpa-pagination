@@ -1,0 +1,5 @@
+package com.ece.emp.pagination.service.repository;
+
+public interface EmployeeRepository {
+
+}
